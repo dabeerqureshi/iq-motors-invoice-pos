@@ -1,8 +1,18 @@
+# Dependencies
 node_modules/
+
+# Build artifacts & packages
 dist/
-.data/
-.DS_Store
 *.dmg
 *.exe
 *.zip
+*.blockmap
 .icon-icns/
+
+# Generated runtime data & cache
+.data/
+*.pdf
+
+# OS metadata
+.DS_Store
+Thumbs.db

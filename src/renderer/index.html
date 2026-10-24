@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+<title>IQ Motors POS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <img src="../../assets/logo.png" alt="IQ Motors">
+  <nav>
+    <button data-tab="new" class="active">New invoice</button>
+    <button data-tab="history">Invoices</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+</header>
+
+<main>
+<section id="tab-new" class="tab active">
+  <div class="grid2">
+    <fieldset>
+      <legend>Customer</legend>
+      <label>Name <input id="c-name" list="customer-list" autocomplete="off"></label>
+      <datalist id="customer-list"></datalist>
+      <label>Email <input id="c-email" type="email"></label>
+      <label>Phone <input id="c-phone"></label>
+    </fieldset>
+    <fieldset>
+      <legend>Vehicle</legend>
+      <div class="row2">
+        <label>Make <input id="v-make" value="MERCEDES BENZ"></label>
+        <label>Model <input id="v-model"></label>
+      </div>
+      <div class="row2">
+        <label>Reg <input id="v-reg"></label>
+        <label>Mileage <input id="v-mileage"></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="grid2">
+    <fieldset>
+      <legend>Invoice</legend>
+      <div class="row2">
+        <label>Invoice no <input id="i-number"></label>
+        <label>Date <input id="i-date" type="date"></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Totals</legend>
+      <div class="totals">
+        <div><span>Labour (no VAT)</span><b id="t-labour">£0.00</b></div>
+        <div><span>Parts (LP)</span><b id="t-parts">£0.00</b></div>
+        <div><span>Subtotal</span><b id="t-sub">£0.00</b></div>
+        <div><span>VAT 20% on parts</span><b id="t-vat">£0.00</b></div>
+        <div class="grand"><span>TOTAL</span><b id="t-total">£0.00</b></div>
+      </div>
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <legend>Description of work (no VAT)</legend>
+    <table id="labour-table"><thead><tr><th>Description</th><th class="num">Cost £</th><th></th></tr></thead><tbody></tbody></table>
+    <button id="add-labour" class="link">+ Add work line</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Parts (+20% VAT)</legend>
+    <div class="lookup">
+      <input id="lookup-pn" placeholder="Part number">
+      <button id="lookup-btn">Search Mercedes LP price</button>
+      <button id="mb-portal-btn" type="button" class="link" style="padding: 0 4px; font-size: 13px;">Open B2B Portal</button>
+      <span id="lookup-msg" class="muted"></span>
+    </div>
+    <table id="parts-table"><thead><tr><th>Part name</th><th>Part number</th><th class="num">Qty</th><th class="num">Price £</th><th></th></tr></thead><tbody></tbody></table>
+    <button id="add-part" class="link">+ Add part manually</button>
+  </fieldset>
+
+  <div class="actions">
+    <span id="status" class="muted"></span>
+    <button id="btn-clear">Clear</button>
+    <button id="btn-pdf">Save PDF</button>
+    <button id="btn-send" class="primary">Save PDF &amp; email to customer</button>
+  </div>
+</section>
+
+<section id="tab-history" class="tab">
+  <table id="history-table"><thead><tr><th>No</th><th>Date</th><th>Customer</th><th>Reg</th><th class="num">Total</th><th>Sent</th><th></th></tr></thead><tbody></tbody></table>
+</section>
+
+<section id="tab-settings" class="tab">
+  <fieldset>
+    <legend>Business</legend>
+    <label>VAT registration number <input id="s-vat"></label>
+    <label>Next invoice number <input id="s-next" type="number"></label>
+    <label>Save PDFs to folder <span class="inline"><input id="s-folder" placeholder="Documents/IQ Motors Invoices" readonly><button id="s-folder-btn">Choose…</button></span></label>
+  </fieldset>
+  <fieldset>
+    <legend>Email (Gmail)</legend>
+    <label>Gmail address <input id="s-gmail" type="email"></label>
+    <label>App password <input id="s-apppass" type="password" placeholder="16-character app password"></label>
+    <label>Subject <input id="s-subject"></label>
+    <label>Message <textarea id="s-body" rows="7"></textarea></label>
+    <p class="muted">Placeholders: {{name}} {{number}} {{reg}} {{total}}</p>
+    <div class="actions left"><button id="s-test">Test email login</button><span id="s-test-msg" class="muted"></span></div>
+  </fieldset>
+  <fieldset>
+    <legend>Mercedes-Benz B2B Connect</legend>
+    <p class="muted">Log in once with your workshop account. Your session is saved securely so the app can fetch parts and List Prices (LP).</p>
+    <div class="actions left">
+      <button id="s-mb-login" type="button">Open Mercedes B2B Login</button>
+      <span id="s-mb-status" class="muted"></span>
+    </div>
+  </fieldset>
+  <div class="actions"><span id="s-msg" class="muted"></span><button id="s-save" class="primary">Save settings</button></div>
+</section>
+</main>
+<script src="renderer.js"></script>
+</body>
+</html>

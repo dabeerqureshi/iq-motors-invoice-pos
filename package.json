@@ -1,0 +1,44 @@
+{
+  "name": "iqmotors-pos",
+  "version": "1.0.0",
+  "description": "IQ Motors invoicing desktop app",
+  "main": "src/main.js",
+  "author": "IQ Motors",
+  "scripts": {
+    "start": "electron .",
+    "test": "node scripts/test-all.js",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac": "electron-builder --mac --publish never"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.iqmotors.pos",
+    "productName": "IQ Motors POS",
+    "directories": { "buildResources": "build", "output": "dist" },
+    "files": ["src/**/*", "assets/**/*", "package.json"],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "IQ Motors POS"
+    },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["universal"] }],
+      "icon": "build/icon.png",
+      "identity": null,
+      "category": "public.app-category.business"
+    },
+    "artifactName": "IQ-Motors-POS-Setup-${version}.${ext}"
+  }
+}
